@@ -1,21 +1,20 @@
 ﻿///////////////////////////
 // Автор:  Калинин Павел //
+// Файл:   Stack.h       //
 // Создан: 03.01.2019    //
 ///////////////////////////
 
 #ifndef _STACK_H_
 #define _STACK_H_
 
-// пространство имен
 namespace kpm
 {
 	/* 
 		#####   класс "стек"   #####
 		* реализован на односвязном списке
-		* T1 - тип ключа
-		* unsigned int - максимальный размер стека в байтах
+		* T - тип ключа
 	*/
-	template <typename T1, unsigned int buffer>
+	template <typename T>
 	class Stack
 	{
 	private:
@@ -23,29 +22,30 @@ namespace kpm
 		struct stack_elem
 		{
 			// ключ
-			T1 key;
+			T key;
 
 			// указатель на следующий элемент стека
 			Stack* next_elem;
 		} m_stack_elem;
 
 	public:
-		// конструктор элемента стека
-		Stack();
+		// конструктор элемента стека, принимающий размер буфера под стек
+		Stack(const unsigned int&);
 
 		// деструктор элемента стека
 		~Stack();
-
-
 	};
 
-	template <typename T1, unsigned int buffer>
-	Stack<T1, unsigned int>::Stack()
-	{
+	// конструктор элемента стека, принимающий размер буфера под стек
+	// const unsigned int& - размер буфера 
+	template <typename T>
+	Stack<T>::Stack(const unsigned int& r_BUF_SIZE)
+	{}
 
-	}
-
-
+	// деструктор элемента стека
+	template <typename T>
+	Stack<T>::~Stack()
+	{}
 }
 
 #endif /* _STACK_H_ */
