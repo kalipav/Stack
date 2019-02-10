@@ -8,39 +8,80 @@
 #include "Stack_info.h" // описание исключений
 #include <iostream>
 
+// определяет тип данных в стеке
+#define TYPE std::string
+
 //функция для проверки класса kpm::Stack
 int main() try
 {
-	// стек из целочисленных элементов, ограничение - 1000 байт
-	kpm::Stack <int> my_stack(1000);
+	// стек
+	kpm::Stack <TYPE> my_stack;
 
-	// переменная для хранения команды
+	// переменная для записи команды
 	char command;
 
 	for (;;)
 	{
-		// ввод команды
+		std::cout << "\nEnter 'h' for help.\n";
 		std::cout << "Enter the command:\n";
 		std::cout << "> ";
-		std::cin >> command;
+
+		// ввод команды
+		while(!(std::cin >> command));
 
 		// операции со стеком
 		switch (command)
 		{
-		// добавить значение на вершину стека
-		case 'p':
+		// помощь
+		case 'h':
+			std::cout << "\n#######################   \n";
+			std::cout <<   "\"a value\" - push(value) \n";
+			std::cout <<   "      \"d\" - pop()       \n";
+			std::cout <<   "      \"t\" - top()       \n";
+			std::cout <<   "      \"e\" - empty()     \n";
+			std::cout <<   "      \"s\" - size()      \n";
+			std::cout <<   "      \"c\" - clear()     \n";
+			std::cout <<   "#######################   \n";
+			break;
 
-		// удаляет значение на вершине стека
+		// добавить значение на вершину стека
+		case 'a':
+			{
+				// буфер значения, помещаемого на вершину стека
+				TYPE buf;
+
+				// ввод данных
+				while (!(std::cin >> buf));
+
+				// поместить элемент на вершину стека
+				my_stack.Push(buf); 
+			};
+			break;
+
+		// удалить элемент с вершины стека
 		case 'd':
+			my_stack.Pop();
+			break;
+			
+		// возвращает значение на вершине стека
+		case 't':
+			my_stack.Top();
+			break;
 
 		// возвращает true, если стек пустой, иначе - false
 		case 'e':
+			my_stack.Empty();
+			break;
 
 		// возвращает количество элементов стека
 		case 's':
+			my_stack.Size();
+			break;
 
-		// возвращает значение на вершине стека
-		case 't':
+		// очистить стек
+		case 'c':
+			my_stack.Clear();
+			break;
 
 		// выход из программы 
 		case 'q':                              
@@ -48,17 +89,22 @@ int main() try
 
 		default:
 			{
-				throw kpm::Stack_info("Warning! Unknown command!\n");
+				throw kpm::Stack_info("Error! Unknown command!\n");
 			}
 		};
 	};
+
+	system("pause");
+	return 0;
 }
 
+// вывод информации по исключению
 catch (const kpm::Stack_info& r_INFO)
 {
 	r_INFO.Print();
 }
 
+// неизвестное исключение
 catch (...)
 {
 	std::cout << "Warning! Unknown exception caught!\n";
