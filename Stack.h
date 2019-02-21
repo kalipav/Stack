@@ -31,19 +31,19 @@ namespace kpm
 		// деструктор элемента стека
 		~Stack();
 
-		// поместить элемент на вершину стека
+		// поместить ключ на вершину стека
 		void Push(const T& r_VALUE);
 
-		// удалить элемент с вершины стека
+		// удалить ключ с вершины стека
 		void Pop();
 
-		// возвращает значение на вершине стека
+		// возвращает ключ на вершине стека
 		T& Top() const;
 
 		// возвращает true, если стек пустой, иначе - false
 		bool Empty() const;
 
-		// возвращает количество элементов стека
+		// возвращает количество ключей в стеке
 		int& Size() const;
 
 		// очистить стек
@@ -56,7 +56,7 @@ namespace kpm
 	m_p_key(0x0),
 	m_p_next_elem(0x0)
 	{
-		std::cout << "The element is created.\n";
+		//std::cout << "The element is created.\n";
 	}
 
 	// деструктор элемента стека
@@ -71,10 +71,10 @@ namespace kpm
 		delete m_p_next_elem;
 		m_p_next_elem = 0x0;
 
-		std::cout << "The element exempted.\n";
+		//std::cout << "The element exempted.\n";
 	}
 
-	// поместить элемент на вершину стека
+	// поместить ключ на вершину стека
 	template <typename T>
 	void Stack<T>::Push(const T& r_VALUE)
 	{
@@ -84,7 +84,7 @@ namespace kpm
 			m_p_key = new T(r_VALUE);
 		}
 
-		// иначе создать новый элемент списка
+		// иначе создать новый элемент стека
 		else
 		{
 			// новый элемент
@@ -102,28 +102,25 @@ namespace kpm
 			// адрес второго элемента списка
 			this->m_p_next_elem = p_new_elem;
 		};
-
-		std::cout << *m_p_key << " is placed.\n";
 	}
 
-	// удалить элемент с вершины стека
+	// удалить ключ с вершины стека
 	template <typename T>
 	void Stack<T>::Pop()
 	{
-		// удаляемое значение на вершине стека
+		// удаляемый ключ на вершине стека
 		T temp_value;
 
 		// если нет адреса ключа и адреса след. элемента - выход из метода
 		if (this->m_p_key == 0x0 && this->m_p_next_elem == 0x0) 
 		{
-			std::cout << "Stack is empty.\n";
 			return;
 		}
 
 		// если ключ один - удаляем его
 		else if (this->m_p_key != 0x0 && this->m_p_next_elem == 0x0)
 		{
-			// удаляемое значение на вершине стека
+			// удаляемый ключ на вершине стека
 			temp_value = *this->m_p_key;
 
 			delete this->m_p_key;
@@ -135,10 +132,10 @@ namespace kpm
 			// буферный указатель на второй элемент списка
 			Stack <T>* p_next_elem = this->m_p_next_elem; 
 
-			// удаляемое значение на вершине стека
+			// удаляемый ключ на вершине стека
 			temp_value = *this->m_p_key;
 
-			// освобождаем ключ первого элемента
+			// освобождаем указатель на ключ первого элемента
 			delete this->m_p_key; 
 
 			// копируем адрес ключа 2-го элемента
@@ -153,22 +150,19 @@ namespace kpm
 			// зануляем адрес следующего элемента 2-го элемента, чтобы деструктор не освободил память
 			p_next_elem->m_p_next_elem = 0x0; 
 
-			// освобождаем 2-ой элемент
+			// освобождаем указатель на 2-ой элемент
 			delete p_next_elem; 
 		};
-
-		std::cout << temp_value << " exempted.\n";
 	}
 
-	// возвращает значение на вершине стека
-	// [out] T - значение на вершине стека
+	// возвращает ключ на вершине стека
+	// [out] T - ключ на вершине стека
 	template <typename T>
 	T& Stack<T>::Top() const
 	{
-		// вернуть значение 
+		// вернуть ключ
 		if (this->m_p_key != 0x0)
 		{
-			std::cout << *this->m_p_key << " returned.\n";
 			return *this->m_p_key;
 		}
 
@@ -187,18 +181,16 @@ namespace kpm
 		// если нет ни одного ключа, вернуть true
 		if (this->m_p_key == 0x0)
 		{
-			std::cout << "Stack is empty.\n";
 			return true;
 		}
 		else
 		{
-			std::cout << "Stack is not empty.\n";
 			return false;
 		}
 	}
 
-	// возвращает количество элементов стека
-	// [out] int - количество элементов стека
+	// возвращает количество ключей в стеке
+	// [out] int - количество ключей в стеке
 	template <typename T>
 	int& Stack<T>::Size() const
 	{
@@ -224,8 +216,6 @@ namespace kpm
 				};
 			};
 		};
-
-		std::cout << counter << " elements in stack.\n";
 		return counter;
 	}
 
@@ -238,8 +228,6 @@ namespace kpm
 
 		delete this->m_p_next_elem;
 		m_p_next_elem = 0x0;
-
-		std::cout << "Stack is clear.\n";
 	}
 }
 

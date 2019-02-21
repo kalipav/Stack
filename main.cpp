@@ -11,23 +11,26 @@
 // определяет тип данных в стеке
 #define TYPE std::string
 
-//функция для проверки класса kpm::Stack
-int main() try
+// проверка класса kpm::Stack
+int main()
 {
+	std::cout << "\tStack\n";
+
 	// стек
 	kpm::Stack <TYPE> my_stack;
 
 	// переменная для записи команды
 	char command;
+	
+	std::cout << "Enter 'h' for help.\n";
 
-	for (;;)
+	for (;;) try
 	{
-		std::cout << "\nEnter 'h' for help.\n";
-		std::cout << "Enter the command:\n";
+		std::cout << "\nEnter command:\n";
 		std::cout << "> ";
 
 		// ввод команды
-		while(!(std::cin >> command));
+		std::cin >> command;
 
 		// операции со стеком
 		switch (command)
@@ -44,43 +47,57 @@ int main() try
 			std::cout <<   "#######################   \n";
 			break;
 
-		// добавить значение на вершину стека
+		// добавить ключ на вершину стека
 		case 'a':
 			{
-				// буфер значения, помещаемого на вершину стека
+				// буфер для ключа, помещаемого на вершину стека
 				TYPE buf;
 
 				// ввод данных
-				while (!(std::cin >> buf));
+				std::cin >> buf;
 
-				// поместить элемент на вершину стека
+				// поместить ключ на вершину стека
 				my_stack.Push(buf); 
+
+				std::cout << buf << " is placed.\n";
 			};
 			break;
 
-		// удалить элемент с вершины стека
+		// удалить ключ с вершины стека
 		case 'd':
+			std::cout << my_stack.Top() << " exempted.\n";
 			my_stack.Pop();
 			break;
 			
-		// возвращает значение на вершине стека
+		// возвращает ключ на вершине стека
 		case 't':
-			my_stack.Top();
+			{
+				TYPE buf = my_stack.Top();
+				std::cout << buf << " on top.\n";
+			};
 			break;
 
 		// возвращает true, если стек пустой, иначе - false
 		case 'e':
-			my_stack.Empty();
+			if (my_stack.Empty())
+			{
+				std::cout << "Stack is empty.\n";
+			}
+			else
+			{
+				std::cout << "Stack is not empty.\n";
+			};
 			break;
 
-		// возвращает количество элементов стека
+		// возвращает количество ключей стека
 		case 's':
-			my_stack.Size();
+			std::cout << my_stack.Size() << " keys in stack.\n";
 			break;
 
 		// очистить стек
 		case 'c':
 			my_stack.Clear();
+			std::cout << "Stack cleared.\n";
 			break;
 
 		// выход из программы 
@@ -92,20 +109,18 @@ int main() try
 				throw kpm::Stack_info("Error! Unknown command!\n");
 			}
 		};
+	}
+
+	// вывод информации по исключению
+	catch (const kpm::Stack_info& r_INFO)
+	{
+		r_INFO.Print();
+	}
+
+	// неизвестное исключение
+	catch (...)
+	{
+		std::cout << "Warning! Unknown exception caught!\n";
 	};
-
-	system("pause");
-	return 0;
 }
 
-// вывод информации по исключению
-catch (const kpm::Stack_info& r_INFO)
-{
-	r_INFO.Print();
-}
-
-// неизвестное исключение
-catch (...)
-{
-	std::cout << "Warning! Unknown exception caught!\n";
-};
